@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -11,11 +11,13 @@ import {
 import {Button} from '../components/button';
 import {HeaderBackButton} from '../components/headerBackButton';
 import {Input} from '../components/textInput';
+import {PlayersContext} from '../context/context';
 import {navigationTypes} from '../navigation/navigationTypes';
 import {GlobalStyles} from '../styles/globalStyles';
 
 const PlayerSetting: React.FC<navigationTypes> = ({navigation, route}) => {
-  console.log(route);
+  const context = useContext(PlayersContext);
+  console.log(route, context);
 
   return (
     <SafeAreaView style={GlobalStyles.body}>
