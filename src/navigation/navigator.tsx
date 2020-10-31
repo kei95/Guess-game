@@ -7,7 +7,7 @@ import NameSetting from '../screens/NameSetting';
 import {GlobalStyles} from '../styles/globalStyles';
 import {HeaderBackButton} from '../components/headerBackButton';
 import {navigationTypes} from './navigationTypes';
-import PlayerSetting from '../screens/PlayerSetting';
+import PlayerSetting from '../screens/PlayersSetting/PlayerSetting';
 import {defaultPlayers, PlayersContext} from '../context/context';
 import {User} from '../context/types';
 
