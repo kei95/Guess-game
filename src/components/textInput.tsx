@@ -1,10 +1,8 @@
 import React from 'react';
 import {
-  NativeSyntheticEvent,
   StyleSheet,
   Text,
   TextInput,
-  TextInputChangeEventData,
   TextStyle,
   View,
   ViewStyle,
@@ -14,14 +12,22 @@ import {GlobalStyles} from '../styles/globalStyles';
 interface textInputProps {
   label?: string;
   value: string;
-  onChange?: (_: NativeSyntheticEvent<TextInputChangeEventData>) => void;
+  onChangeText?: (text: string) => void;
 }
 
-export const Input: React.FC<textInputProps> = ({label, value, onChange}) => {
+export const Input: React.FC<textInputProps> = ({
+  label,
+  value,
+  onChangeText,
+}) => {
   return (
     <View style={styles.container}>
       {label && <Text style={styles.label}>{label}</Text>}
-      <TextInput style={styles.input} value={value} onChange={onChange} />
+      <TextInput
+        style={styles.input}
+        value={value}
+        onChangeText={onChangeText}
+      />
     </View>
   );
 };

@@ -11,23 +11,17 @@ import {
 import {Button} from '../../components/button';
 import {HeaderBackButton} from '../../components/headerBackButton';
 import {PlayersContext} from '../../context/context';
-import {User} from '../../context/types';
 import {navigationTypes} from '../../navigation/navigationTypes';
 import {GlobalStyles} from '../../styles/globalStyles';
 import {Buttons} from './components/Buttons';
-import {PlayerNameInput} from './components/PlayerNameInput';
+import {PlayersInputs} from './components/Players';
 
 const PlayerSetting: React.FC<navigationTypes> = ({navigation}) => {
   const context = useContext(PlayersContext);
-  const [players, setPlayers] = useState<User[]>(context!.players);
 
-  const Players: Element[] = players.map((player: User, index: number) => (
-    <PlayerNameInput player={player} index={index} key={`player_${index}`} />
-  ));
-
-  const onPressNext = () => {
-    context!.setPlayers(players);
-  };
+  // const onPressStartGame = () => {
+  //   context!.setPlayers(players);
+  // };
 
   return (
     <SafeAreaView style={GlobalStyles.body}>
@@ -36,12 +30,15 @@ const PlayerSetting: React.FC<navigationTypes> = ({navigation}) => {
           <HeaderBackButton navigation={navigation} />
           <View style={styles.scrollInnerContainer}>
             <Text style={styles.title}>Add players and name</Text>
-            {Players}
-            <Buttons players={players} setPlayers={setPlayers} />
+            <PlayersInputs playersContext={context} />
+            <Buttons
+              players={context!.players}
+              setPlayers={context!.setPlayers}
+            />
           </View>
         </ScrollView>
         <View style={styles.buttonWrapper}>
-          <Button title="Start game" onPress={onPressNext} />
+          <Button title="Start game" onPress={() => null} />
         </View>
       </View>
     </SafeAreaView>
