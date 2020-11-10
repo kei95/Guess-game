@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -10,6 +10,7 @@ import {
 
 import {Button} from '../../components/button';
 import {HeaderBackButton} from '../../components/headerBackButton';
+import {KeyboardView} from '../../components/keyboardView';
 import {PlayersContext} from '../../context/context';
 import {navigationTypes} from '../../navigation/navigationTypes';
 import {GlobalStyles} from '../../styles/globalStyles';
@@ -19,26 +20,28 @@ import {PlayersInputs} from './components/Players';
 const PlayerSetting: React.FC<navigationTypes> = ({navigation}) => {
   const context = useContext(PlayersContext);
 
-  // const onPressStartGame = () => {
-  //   context!.setPlayers(players);
-  // };
+  const onPressStartGame = () => {
+    navigation.navigate('Number');
+  };
 
   return (
     <SafeAreaView style={GlobalStyles.body}>
       <View style={styles.innerBody}>
-        <ScrollView style={styles.scrollContainer}>
-          <HeaderBackButton navigation={navigation} />
-          <View style={styles.scrollInnerContainer}>
-            <Text style={styles.title}>Add players and name</Text>
-            <PlayersInputs playersContext={context} />
-            <Buttons
-              players={context!.players}
-              setPlayers={context!.setPlayers}
-            />
-          </View>
-        </ScrollView>
+        <KeyboardView>
+          <ScrollView style={styles.scrollContainer}>
+            <HeaderBackButton navigation={navigation} />
+            <View style={styles.scrollInnerContainer}>
+              <Text style={styles.title}>Add players and name</Text>
+              <PlayersInputs playersContext={context} />
+              <Buttons
+                players={context!.players}
+                setPlayers={context!.setPlayers}
+              />
+            </View>
+          </ScrollView>
+        </KeyboardView>
         <View style={styles.buttonWrapper}>
-          <Button title="Start game" onPress={() => null} />
+          <Button title="Start game" onPress={onPressStartGame} />
         </View>
       </View>
     </SafeAreaView>

@@ -1,14 +1,18 @@
 import React from 'react';
-import {SafeAreaView, View} from 'react-native';
+import {SafeAreaView, View, ViewStyle} from 'react-native';
 
 import {GlobalStyles} from '../styles/globalStyles';
 
-type Props = {children: React.ReactNode};
+type Props = {
+  children: React.ReactNode;
+  style?: ViewStyle;
+  innerStyle?: ViewStyle;
+};
 
-const DefaultBody: React.FC<Props> = ({children}) => {
+const DefaultBody: React.FC<Props> = ({children, style, innerStyle}) => {
   return (
-    <SafeAreaView style={GlobalStyles.body}>
-      <View style={GlobalStyles.innerContainer}>{children}</View>
+    <SafeAreaView style={[GlobalStyles.body, style]}>
+      <View style={[GlobalStyles.innerContainer, innerStyle]}>{children}</View>
     </SafeAreaView>
   );
 };

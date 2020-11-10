@@ -1,5 +1,13 @@
 import React from 'react';
-import {StyleSheet, View, Image, Text} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Image,
+  Text,
+  ViewStyle,
+  TextStyle,
+  ImageStyle,
+} from 'react-native';
 
 import DefaultBody from './src/components/defaultBody';
 import {GlobalStyles} from './src/styles/globalStyles';
@@ -28,9 +36,10 @@ const App: React.FC<navigationTypes> = ({navigation}) => {
 
 const styles = StyleSheet.create({
   logoWrapper: {
-    paddingTop: '30%',
+    flex: 3,
+    justifyContent: 'center',
     alignSelf: 'center',
-  },
+  } as ViewStyle,
   title: {
     fontSize: 25,
     color: '#3D405B',
@@ -38,16 +47,16 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     paddingTop: 20,
     fontFamily: GlobalStyles.defaultFont,
-  },
+  } as TextStyle,
   buttonWrapper: {
     flex: 1,
     justifyContent: 'flex-end',
-  },
+  } as ViewStyle,
   appLogo: {
     width: 150,
     height: 150,
     tintColor: '#3D405B',
-  },
+  } as ImageStyle,
 });
 
 export default App;
