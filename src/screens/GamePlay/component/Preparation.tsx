@@ -1,45 +1,36 @@
-import React, {useContext, useState} from 'react';
-import {
-  Image,
-  ImageStyle,
-  StyleSheet,
-  Text,
-  TextStyle,
-  View,
-  ViewStyle,
-} from 'react-native';
-import {Button} from '../../components/button';
-import DefaultBody from '../../components/defaultBody';
-import {PlayersContext} from '../../context/context';
-import {navigationTypes} from '../../navigation/navigationTypes';
-import {GlobalStyles} from '../../styles/globalStyles';
-import {NumberPicker} from './component/NumberPicker';
+import React from 'react';
+import {ImageStyle, StyleSheet, Text, TextStyle, ViewStyle} from 'react-native';
+import {Image, View} from 'react-native';
+import {Button} from '../../../components/button';
+import DefaultBody from '../../../components/defaultBody';
+import {GlobalStyles} from '../../../styles/globalStyles';
 
-interface NumberProps extends navigationTypes {}
-// TODO: Disable android's back button
-export const Number: React.FC<NumberProps> = ({navigation}) => {
-  const [isReadyToPic, setIsReadyToPic] = useState<boolean>(false);
-  const context = useContext(PlayersContext);
-  console.log('context', context);
-  return isReadyToPic ? (
-    <NumberPicker navigation={navigation} />
-  ) : (
+interface PreparationProps {
+  playerName: string;
+  onPressButton: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export const Preparation: React.FC<PreparationProps> = ({
+  playerName,
+  onPressButton,
+}) => {
+  return (
     <DefaultBody>
       <View style={styles.contentsWrapper}>
         <Image
           style={styles.appLogo}
-          source={require('../../../assets/img/passDevice.png')}
+          source={require('../../../../assets/img/passDevice.png')}
         />
         <View style={styles.nameContainer}>
           <Text style={styles.text}>Next player: </Text>
-          <Text style={styles.nameText}>Player1234567</Text>
+          <Text style={styles.nameText}>{playerName}</Text>
         </View>
         <Text style={styles.descriptionText}>
           Please pass the device on to the next player
         </Text>
       </View>
       <View style={styles.buttonWrapper}>
-        <Button title="Ready" onPress={() => setIsReadyToPic(true)} />
+        <Button title="Ready" onPress={() => onPressButton(true)} />
       </View>
     </DefaultBody>
   );
@@ -55,6 +46,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     flexDirection: 'row',
     paddingTop: 20,
+    alignSelf: 'center',
   } as ViewStyle,
   title: {
     fontSize: 25,

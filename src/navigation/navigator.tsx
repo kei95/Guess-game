@@ -6,7 +6,7 @@ import {navigationTypes} from './navigationTypes';
 import PlayerSetting from '../screens/PlayersSetting/PlayerSetting';
 import {defaultPlayers, PlayersContext} from '../context/context';
 import {User} from '../context/types';
-import {Number} from '../screens/Number/Number';
+import {GameInput} from '../screens/GamePlay/GameInput';
 
 const Stack = createStackNavigator();
 
@@ -31,8 +31,8 @@ const RootStack: React.FC<navigationTypes> = () => {
             }}
           />
           <Stack.Screen
-            name="Number"
-            component={Number}
+            name="GameInput"
+            component={GameInput}
             options={{
               headerShown: false,
               gestureEnabled: false,

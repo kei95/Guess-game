@@ -10,15 +10,16 @@ import {
 import {Button} from '../../../components/button';
 
 import DefaultBody from '../../../components/defaultBody';
-import {navigationTypes} from '../../../navigation/navigationTypes';
 import {GlobalStyles} from '../../../styles/globalStyles';
 import Picker from './Picker';
 
-interface NumberPickerProps extends navigationTypes {}
+interface NumberPickerProps {
+  onPressButton: (number: number) => void;
+}
 
 const data = Array.from({length: 100}, (_, i) => i);
 
-export const NumberPicker: React.FC<NumberPickerProps> = ({navigation}) => {
+export const NumberPicker: React.FC<NumberPickerProps> = ({onPressButton}) => {
   const [number, setNumber] = useState(0);
 
   const renderItem = (item: string, _: number) => {
@@ -56,7 +57,8 @@ export const NumberPicker: React.FC<NumberPickerProps> = ({navigation}) => {
       <View style={styles.buttonWrapper}>
         <Button
           title="Ready"
-          onPress={() => navigation.navigate('PlayerSetting')}
+          // onPress={() => navigation.navigate('PlayerSetting')}
+          onPress={() => onPressButton(number)}
         />
       </View>
     </DefaultBody>
