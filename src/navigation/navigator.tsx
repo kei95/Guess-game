@@ -7,6 +7,7 @@ import PlayerSetting from '../screens/PlayersSetting/PlayerSetting';
 import {defaultPlayers, PlayersContext} from '../context/context';
 import {User} from '../context/types';
 import {GameInput} from '../screens/GamePlay/GameInput';
+import {Result} from '../screens/Result/Result';
 
 const Stack = createStackNavigator();
 
@@ -33,6 +34,14 @@ const RootStack: React.FC<navigationTypes> = () => {
           <Stack.Screen
             name="GameInput"
             component={GameInput}
+            options={{
+              headerShown: false,
+              gestureEnabled: false,
+            }}
+          />
+          <Stack.Screen
+            name="Result"
+            component={Result}
             options={{
               headerShown: false,
               gestureEnabled: false,

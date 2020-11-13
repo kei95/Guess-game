@@ -26,7 +26,12 @@ export const GameInput: React.FC<NumberProps> = ({navigation}) => {
     setCurrentPlayerIndex(currentPlayerIndex + 1);
     players!.length > currentPlayerIndex + 1
       ? setIsReadyToPic(false)
-      : navigation.navigate('PlayerSetting'); // move to next screen
+      : goToResult(); // move to next screen
+  };
+
+  const goToResult = () => {
+    setCurrentPlayerIndex(0);
+    navigation.navigate('Result');
   };
 
   return isReadyToPic ? (
