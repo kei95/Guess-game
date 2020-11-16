@@ -60,7 +60,8 @@ export const GameInput: React.FC<NumberProps> = ({navigation}) => {
     } else {
       // setCurrentPlayerIndex(0);
       setCurrentPlayers(updatedCurrentPlayers);
-      navigation.navigate('Result');
+      setIsReadyToPic(false);
+      navigation.navigate('Result', {outPlayers: winners});
     }
   };
 

@@ -3,22 +3,26 @@ import {StyleSheet, Text, TextStyle, View, ViewStyle} from 'react-native';
 import {Button} from '../../components/button';
 import DefaultBody from '../../components/defaultBody';
 import {PlayersContext} from '../../context/context';
+import {User} from '../../context/types';
 import {navigationTypes} from '../../navigation/navigationTypes';
 import {GlobalStyles} from '../../styles/globalStyles';
 
 interface ResultProps extends navigationTypes {}
 
-export const Result: React.FC<ResultProps> = ({navigation}) => {
-  const context = useContext(PlayersContext);
-
+export const Result: React.FC<ResultProps> = ({navigation, route}) => {
+  const context: Players | undefined = useContext(PlayersContext);
+  const outPlayers: User[] = route?.params?.outPlayers;
+  const outPlayerNames: JSX.Element[] = outPlayers.map((player, idx) => (
+    <Text key={`outPlayer_${idx}`} style={styles.playerName}>
+      {player.name}
+    </Text>
+  ));
   return (
     <DefaultBody>
       <View style={styles.contentsWrapper}>
         <View style={styles.textsContainer}>
           <Text style={styles.title}>The closest player(s)</Text>
-          <Text style={styles.playerName}>Keisuke</Text>
-          {/* <Text style={styles.playerName}>Itsuki Shiokawa</Text>
-          <Text style={styles.playerName}>Satoshi Yamashina</Text> */}
+          {outPlayers && outPlayers.length > 0 && outPlayerNames}
         </View>
       </View>
       <View style={styles.buttonWrapper}>
