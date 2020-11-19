@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -10,6 +10,7 @@ import {
 import {Button} from '../../../components/button';
 
 import DefaultBody from '../../../components/defaultBody';
+import {GuessableNumbers} from '../../../context/context';
 import {GlobalStyles} from '../../../styles/globalStyles';
 import Picker from './Picker';
 
@@ -17,10 +18,27 @@ interface NumberPickerProps {
   onPressButton: (number: number) => void;
 }
 
-const data = Array.from({length: 100}, (_, i) => i);
-
 export const NumberPicker: React.FC<NumberPickerProps> = ({onPressButton}) => {
+  const context = useContext(GuessableNumbers);
   const [number, setNumber] = useState(0);
+  const [data, setData] = useState<number[]>(
+    Array.from({length: 100}, (_, i) => i),
+  );
+
+  useEffect(() => {
+    // TODO: remove the console.log
+    console.log('oh...im called....');
+    setData(
+      Array.from(
+        {
+          length:
+            context!.guessableNumber.greatest -
+            context!.guessableNumber.smallest,
+        },
+        (v, k) => k + context!.guessableNumber.smallest,
+      ),
+    );
+  }, [context]);
 
   const renderItem = (item: string, _: number) => {
     return (

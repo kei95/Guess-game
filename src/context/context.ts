@@ -1,5 +1,5 @@
 import React from 'react';
-import {AnswerNumber, Players, User} from './types';
+import {AnswerNumber, GuessableNumber, Players, User} from './types';
 
 export const PlayersContext = React.createContext<Players | undefined>(
   undefined,
@@ -7,6 +7,10 @@ export const PlayersContext = React.createContext<Players | undefined>(
 
 export const AnswerNumberContext = React.createContext<
   AnswerNumber | undefined
+>(undefined);
+
+export const GuessableNumbers = React.createContext<
+  GuessableNumber | undefined
 >(undefined);
 
 export const defaultPlayers: User[] = [

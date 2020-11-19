@@ -3,6 +3,7 @@ import {Alert} from 'react-native';
 import {
   AnswerNumberContext,
   defaultPlayers,
+  GuessableNumbers,
   PlayersContext,
 } from '../../context/context';
 import {User} from '../../context/types';
@@ -17,9 +18,11 @@ import {
 
 interface NumberProps extends navigationTypes {}
 // TODO: Disable android's back button
+// TODO: Create a function when the game is finished (or draw)
 export const GameInput: React.FC<NumberProps> = ({navigation}) => {
   const context = useContext(PlayersContext);
   const numberContext = useContext(AnswerNumberContext);
+  const guessableNumberContext = useContext(GuessableNumbers);
   const [isReadyToPic, setIsReadyToPic] = useState<boolean>(false);
   const [currentPlayerIndex, setCurrentPlayerIndex] = useState<number>(0);
   const [currentPlayers, setCurrentPlayers] = useState<User[] | undefined>(
@@ -54,14 +57,31 @@ export const GameInput: React.FC<NumberProps> = ({navigation}) => {
     const updatedCurrentPlayers = getCurrentPlayers(updatedPlayers);
     context!.setPlayers(updatedPlayers);
     setCurrentPlayerIndex(0);
+    // needs to be 1 to finish the game
     if (updatedCurrentPlayers.length === 0) {
       // Navigate to the end of the game screen
       Alert.alert('Game Over');
     } else {
-      // setCurrentPlayerIndex(0);
+      updateGuessableNumber(winners);
       setCurrentPlayers(updatedCurrentPlayers);
       setIsReadyToPic(false);
       navigation.navigate('Result', {outPlayers: winners});
+    }
+  };
+
+  const updateGuessableNumber = (winners: User[]) => {
+    const winnersGuess = winners[0].number;
+    const answerNumber = numberContext!.answerNumber;
+    if (winnersGuess > answerNumber) {
+      guessableNumberContext!.setGuessableNumber({
+        ...guessableNumberContext!.guessableNumber,
+        greatest: winnersGuess,
+      });
+    } else if (winnersGuess < answerNumber) {
+      guessableNumberContext!.setGuessableNumber({
+        ...guessableNumberContext!.guessableNumber,
+        smallest: winnersGuess,
+      });
     }
   };
 
