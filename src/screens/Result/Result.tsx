@@ -1,34 +1,36 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import {StyleSheet, Text, TextStyle, View, ViewStyle} from 'react-native';
+
 import {Button} from '../../components/button';
 import DefaultBody from '../../components/defaultBody';
 import {PlayersContext} from '../../context/context';
-import {User} from '../../context/types';
+import {Players, User} from '../../context/types';
 import {navigationTypes} from '../../navigation/navigationTypes';
 import {GlobalStyles} from '../../styles/globalStyles';
+import {OutPlayers} from './components/OutPlayers';
+import {ResultNumber} from './components/ResultNumber';
+import {RuleDescription} from './components/RuleDescription';
 
-interface ResultProps extends navigationTypes {}
-
-export const Result: React.FC<ResultProps> = ({navigation, route}) => {
+export const Result: React.FC<navigationTypes> = ({navigation, route}) => {
   const context: Players | undefined = useContext(PlayersContext);
+  const [isWinnersSeen, setIsWinnersSeen] = useState<boolean>(false);
   const outPlayers: User[] = route?.params?.outPlayers;
-  const outPlayerNames: JSX.Element[] = outPlayers.map((player, idx) => (
-    <Text key={`outPlayer_${idx}`} style={styles.playerName}>
-      {player.name}
-    </Text>
-  ));
+
+  const onPressButton = () => {
+    isWinnersSeen ? navigation.navigate('GameInput') : setIsWinnersSeen(true);
+  };
+
   return (
     <DefaultBody>
       <View style={styles.contentsWrapper}>
-        <View style={styles.textsContainer}>
-          <Text style={styles.title}>The closest player(s)</Text>
-          {outPlayers && outPlayers.length > 0 && outPlayerNames}
-        </View>
+        {!isWinnersSeen && <OutPlayers outPlayers={outPlayers} />}
+        {isWinnersSeen && <ResultNumber outPlayers={outPlayers} />}
       </View>
       <View style={styles.buttonWrapper}>
+        {!isWinnersSeen && <RuleDescription />}
         <Button
-          title="Ready"
-          onPress={() => navigation.navigate('GameInput')}
+          title={isWinnersSeen ? 'Next round' : 'OK'}
+          onPress={onPressButton}
         />
       </View>
     </DefaultBody>

@@ -1,4 +1,4 @@
-import {ViewStyle} from 'react-native';
+import {TextStyle, ViewStyle} from 'react-native';
 
 export const GlobalStyles = {
   backgroundColor: '#F4F1DE',
@@ -16,4 +16,10 @@ export const GlobalStyles = {
     marginHorizontal: '8%',
     paddingBottom: 35,
   } as ViewStyle,
+  smallText: {
+    fontSize: 16,
+    color: '#3D405B',
+    textAlign: 'left',
+    fontFamily: 'Helvetica',
+  } as TextStyle,
 };
