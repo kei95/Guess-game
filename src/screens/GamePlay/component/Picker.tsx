@@ -124,11 +124,11 @@ export default class Picker extends PureComponent<
 
     if (onChange != null) {
       if (position < 1) {
-        onChange(0);
+        onChange(this.props.data[0]);
       } else if (position > this.props.data.length) {
-        onChange(this.props.data.length - 1);
+        onChange(this.props.data[this.props.data.length - 1]);
       } else {
-        onChange(position);
+        onChange(this.props.data[position]);
       }
     }
   };

@@ -26,8 +26,6 @@ export const NumberPicker: React.FC<NumberPickerProps> = ({onPressButton}) => {
   );
 
   useEffect(() => {
-    // TODO: remove the console.log
-    console.log('oh...im called....');
     setData(
       Array.from(
         {
