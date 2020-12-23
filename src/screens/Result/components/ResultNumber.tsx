@@ -42,7 +42,7 @@ export const ResultNumber: React.FC<ResultNumberProps> = ({outPlayers}) => {
 const styles = StyleSheet.create({
   resultNumber: {
     fontSize: 70,
-    color: '#81B29A',
+    color: GlobalStyles.secondPrimaryColor,
     fontWeight: 'bold',
     fontFamily: GlobalStyles.defaultFont,
   } as TextStyle,

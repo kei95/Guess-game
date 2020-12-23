@@ -1,10 +1,10 @@
 import React, {useContext, useState} from 'react';
-import {StyleSheet, Text, TextStyle, View, ViewStyle} from 'react-native';
+import {StyleSheet, TextStyle, View, ViewStyle} from 'react-native';
 
 import {Button} from '../../components/button';
 import DefaultBody from '../../components/defaultBody';
-import {PlayersContext} from '../../context/context';
-import {Players, User} from '../../context/types';
+import {CurrentRound} from '../../context/context';
+import {RoundNumber, User} from '../../context/types';
 import {navigationTypes} from '../../navigation/navigationTypes';
 import {GlobalStyles} from '../../styles/globalStyles';
 import {OutPlayers} from './components/OutPlayers';
@@ -12,12 +12,17 @@ import {ResultNumber} from './components/ResultNumber';
 import {RuleDescription} from './components/RuleDescription';
 
 export const Result: React.FC<navigationTypes> = ({navigation, route}) => {
-  const context: Players | undefined = useContext(PlayersContext);
   const [isWinnersSeen, setIsWinnersSeen] = useState<boolean>(false);
+  const currentRound: RoundNumber = useContext(CurrentRound)!;
   const outPlayers: User[] = route?.params?.outPlayers;
 
   const onPressButton = () => {
-    isWinnersSeen ? navigation.navigate('GameInput') : setIsWinnersSeen(true);
+    isWinnersSeen ? onMoveToRoundInitial() : setIsWinnersSeen(true);
+  };
+
+  const onMoveToRoundInitial = () => {
+    currentRound.setRoundNumber(currentRound.roundNumber + 1);
+    navigation.navigate('RoundInitial');
   };
 
   return (
@@ -58,7 +63,7 @@ const styles = StyleSheet.create({
   } as TextStyle,
   playerName: {
     fontSize: 40,
-    color: '#81B29A',
+    color: GlobalStyles.secondPrimaryColor,
     fontWeight: 'bold',
     fontFamily: GlobalStyles.defaultFont,
     paddingTop: 10,

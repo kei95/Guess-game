@@ -41,7 +41,7 @@ export const Buttons: React.FC<ButtonsProps> = ({players, setPlayers}) => {
       )}
       <Button
         title="+"
-        color={'#81B29A'}
+        color={GlobalStyles.secondPrimaryColor}
         onPress={handleAddPlayer}
         style={styles.addReduceButton}
         textStyle={styles.addReduceButtonText}

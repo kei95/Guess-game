@@ -21,7 +21,7 @@ const PlayerSetting: React.FC<navigationTypes> = ({navigation}) => {
   const context = useContext(PlayersContext);
 
   const onPressStartGame = () => {
-    navigation.navigate('GameInput');
+    navigation.navigate('RoundInitial');
   };
 
   return (

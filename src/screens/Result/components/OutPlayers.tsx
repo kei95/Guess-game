@@ -1,5 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, TextStyle, View, ViewStyle} from 'react-native';
+import {PlayerName} from '../../../components/PlayerName';
 
 import {User} from '../../../context/types';
 import {GlobalStyles} from '../../../styles/globalStyles';
@@ -10,9 +11,7 @@ interface OutPlayersProps {
 
 export const OutPlayers: React.FC<OutPlayersProps> = ({outPlayers}) => {
   const outPlayerNames: JSX.Element[] = outPlayers.map((player, idx) => (
-    <Text key={`outPlayer_${idx}`} style={styles.playerName}>
-      {player.name}
-    </Text>
+    <PlayerName player={player} key={`outPlayer_${idx}`} />
   ));
   return (
     <View style={styles.textsContainer}>
@@ -25,7 +24,7 @@ export const OutPlayers: React.FC<OutPlayersProps> = ({outPlayers}) => {
 const styles = StyleSheet.create({
   playerName: {
     fontSize: 40,
-    color: '#81B29A',
+    color: GlobalStyles.secondPrimaryColor,
     fontWeight: 'bold',
     fontFamily: GlobalStyles.defaultFont,
     paddingTop: 10,

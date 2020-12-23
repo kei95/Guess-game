@@ -22,3 +22,8 @@ export interface guessableNumberType {
   smallest: number;
   greatest: number;
 }
+
+export interface RoundNumber {
+  roundNumber: number;
+  setRoundNumber: React.Dispatch<React.SetStateAction<number>>;
+}

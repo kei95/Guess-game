@@ -4,6 +4,7 @@ export const GlobalStyles = {
   backgroundColor: '#F4F1DE',
   defaultFont: 'Helvetica',
   primaryColor: '#3D405B',
+  secondPrimaryColor: '#81B29A',
   defaultBackground: {
     backgroundColor: '#F4F1DE',
   } as ViewStyle,

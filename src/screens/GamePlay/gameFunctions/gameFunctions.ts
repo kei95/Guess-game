@@ -28,3 +28,7 @@ export const getCurrentPlayers = (players: User[]): User[] => {
 export const isGameGoesOn = (players: User[]) => {
   return players.length > 0 ? true : false;
 };
+
+export const resetPlayers = (players: User[]): User[] => {
+  return players.map((player) => ({...player, number: 0, isOutOfGame: false}));
+};
