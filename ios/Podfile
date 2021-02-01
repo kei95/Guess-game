@@ -33,3 +33,9 @@ target 'GuessGame-tvOS' do
     # Pods for testing
   end
 end
+
+pod 'AKPickerView', :git => 'https://github.com/prscX/AKPickerView.git'
+
+use_native_modules!
+
+pod 'RNNumberSelector', :path => '../node_modules/react-native-number-selector/ios'

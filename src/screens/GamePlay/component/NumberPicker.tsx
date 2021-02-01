@@ -52,7 +52,6 @@ export const NumberPicker: React.FC<NumberPickerProps> = ({onPressButton}) => {
       </View>
     );
   };
-
   return (
     <DefaultBody>
       <View style={styles.contentsWrapper}>
@@ -159,5 +158,10 @@ const styles = StyleSheet.create({
   } as ViewStyle,
   itemContainer: {
     width: 120,
+  } as ViewStyle,
+  numberPicker: {
+    left: 0,
+    width: '100%',
+    height: 70,
   } as ViewStyle,
 });

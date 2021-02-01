@@ -19,10 +19,10 @@ export const PlayerNames: React.FC<PlayerNamesProps> = ({
   const remainedPlayerNames: JSX.Element[] = players.map((player, idx) =>
     !player.isOutOfGame ? (
       <View style={styles.nameWrapper} key={`player_${idx}`}>
-        <PlayerName player={player} />
+        <PlayerName player={player} key={`${player}_${idx}`} />
       </View>
     ) : (
-      <></>
+      <React.Fragment key={`noPlayer_${idx}`} />
     ),
   );
   return (
