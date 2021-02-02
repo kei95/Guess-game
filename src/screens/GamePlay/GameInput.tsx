@@ -1,5 +1,4 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {Alert} from 'react-native';
 import {
   AnswerNumberContext,
   CurrentRound,
@@ -15,7 +14,6 @@ import {
   getWinners,
   getUpDatedPlayers,
   getCurrentPlayers,
-  resetPlayers,
 } from './gameFunctions/gameFunctions';
 
 interface NumberProps extends navigationTypes {}
@@ -63,12 +61,8 @@ export const GameInput: React.FC<NumberProps> = ({navigation}) => {
     // needs to be 1 to finish the game
     if (updatedCurrentPlayers.length === 1) {
       // Navigate to the end of the game screen
-      const restoredPlayers: User[] = resetPlayers(playersFromContext!.players);
-      playersFromContext!.setPlayers(restoredPlayers);
-      Alert.alert('Game Over');
       currentRoundContext!.setRoundNumber(1);
-      // navigation.navigate('Result', {outPlayers: winners, isGameOver: true});
-      navigation.navigate('Landing'); // remove this line later
+      navigation.navigate('Result', {outPlayers: winners, isGameOver: true});
     } else {
       updateGuessableNumber(winners);
       setCurrentPlayers(updatedCurrentPlayers);

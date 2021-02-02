@@ -70,11 +70,7 @@ export const NumberPicker: React.FC<NumberPickerProps> = ({onPressButton}) => {
         </View>
       </View>
       <View style={styles.buttonWrapper}>
-        <Button
-          title="Choose"
-          // onPress={() => navigation.navigate('PlayerSetting')}
-          onPress={() => onPressButton(number)}
-        />
+        <Button title="Choose" onPress={() => onPressButton(number)} />
       </View>
     </DefaultBody>
   );

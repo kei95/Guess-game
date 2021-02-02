@@ -3,10 +3,12 @@ import {StyleSheet, TextStyle, View, ViewStyle} from 'react-native';
 
 import {Button} from '../../components/button';
 import DefaultBody from '../../components/defaultBody';
-import {CurrentRound} from '../../context/context';
+import {CurrentRound, PlayersContext} from '../../context/context';
 import {RoundNumber, User} from '../../context/types';
 import {navigationTypes} from '../../navigation/navigationTypes';
 import {GlobalStyles} from '../../styles/globalStyles';
+import {resetPlayers} from '../GamePlay/gameFunctions/gameFunctions';
+import {GameOver} from './components/GameOver';
 import {OutPlayers} from './components/OutPlayers';
 import {ResultNumber} from './components/ResultNumber';
 import {RuleDescription} from './components/RuleDescription';
@@ -15,8 +17,16 @@ export const Result: React.FC<navigationTypes> = ({navigation, route}) => {
   const [isWinnersSeen, setIsWinnersSeen] = useState<boolean>(false);
   const currentRound: RoundNumber = useContext(CurrentRound)!;
   const outPlayers: User[] = route?.params?.outPlayers;
+  const isGameOver: boolean = route?.params?.isGameOver ?? false;
+  const playersFromContext = useContext(PlayersContext);
 
   const onPressButton = () => {
+    if (isGameOver) {
+      const restoredPlayers: User[] = resetPlayers(playersFromContext!.players);
+      navigation.navigate('Landing');
+      playersFromContext!.setPlayers(restoredPlayers);
+      return;
+    }
     isWinnersSeen ? onMoveToRoundInitial() : setIsWinnersSeen(true);
   };
 
@@ -28,8 +38,13 @@ export const Result: React.FC<navigationTypes> = ({navigation, route}) => {
   return (
     <DefaultBody>
       <View style={styles.contentsWrapper}>
-        {!isWinnersSeen && <OutPlayers outPlayers={outPlayers} />}
-        {isWinnersSeen && <ResultNumber outPlayers={outPlayers} />}
+        {isGameOver && <GameOver />}
+        {!isGameOver && !isWinnersSeen && (
+          <OutPlayers outPlayers={outPlayers} />
+        )}
+        {!isGameOver && isWinnersSeen && (
+          <ResultNumber outPlayers={outPlayers} />
+        )}
       </View>
       <View style={styles.buttonWrapper}>
         {!isWinnersSeen && <RuleDescription />}
