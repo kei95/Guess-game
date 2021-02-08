@@ -20,6 +20,7 @@ export interface HorizontalPickerProps extends ScrollViewProps {
 
 export type HorizontalPickerState = {
   scrollViewWidth: number;
+  isMounted: boolean;
 };
 
 export default class Picker extends PureComponent<
@@ -45,7 +46,12 @@ export default class Picker extends PureComponent<
 
     this.state = {
       scrollViewWidth: 0,
+      isMounted: true,
     };
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.timeoutDelayedSnap as NodeJS.Timeout);
   }
 
   private onLayoutScrollView = (e: LayoutChangeEvent) => {
@@ -114,6 +120,7 @@ export default class Picker extends PureComponent<
   };
 
   private scrollToPosition = (position: number) => {
+    if (!this.state.isMounted) return;
     const {itemWidth, onChange} = this.props;
     const x = position * itemWidth;
     this.ignoreNextScroll = true;
