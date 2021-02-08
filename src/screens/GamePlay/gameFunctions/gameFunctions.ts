@@ -32,3 +32,8 @@ export const isGameGoesOn = (players: User[]) => {
 export const resetPlayers = (players: User[]): User[] => {
   return players.map((player) => ({...player, number: 0, isOutOfGame: false}));
 };
+
+export const resetGuessAbleNumbersBody = {
+  smallest: 0,
+  greatest: 101,
+}

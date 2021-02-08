@@ -3,11 +3,18 @@ import {StyleSheet, TextStyle, View, ViewStyle} from 'react-native';
 
 import {Button} from '../../components/button';
 import DefaultBody from '../../components/defaultBody';
-import {CurrentRound, PlayersContext} from '../../context/context';
+import {
+  CurrentRound,
+  GuessableNumbers,
+  PlayersContext,
+} from '../../context/context';
 import {RoundNumber, User} from '../../context/types';
 import {navigationTypes} from '../../navigation/navigationTypes';
 import {GlobalStyles} from '../../styles/globalStyles';
-import {resetPlayers} from '../GamePlay/gameFunctions/gameFunctions';
+import {
+  resetPlayers,
+  resetGuessAbleNumbersBody,
+} from '../GamePlay/gameFunctions/gameFunctions';
 import {GameOver} from './components/GameOver';
 import {OutPlayers} from './components/OutPlayers';
 import {ResultNumber} from './components/ResultNumber';
@@ -18,6 +25,7 @@ export const Result: React.FC<navigationTypes> = ({navigation, route}) => {
   const currentRound: RoundNumber = useContext(CurrentRound)!;
   const outPlayers: User[] = route?.params?.outPlayers;
   const isGameOver: boolean = route?.params?.isGameOver ?? false;
+  const guessableNumberContext = useContext(GuessableNumbers);
   const playersFromContext = useContext(PlayersContext);
 
   const onPressButton = () => {
@@ -25,6 +33,7 @@ export const Result: React.FC<navigationTypes> = ({navigation, route}) => {
       const restoredPlayers: User[] = resetPlayers(playersFromContext!.players);
       navigation.navigate('Landing');
       playersFromContext!.setPlayers(restoredPlayers);
+      guessableNumberContext!.setGuessableNumber(resetGuessAbleNumbersBody);
       return;
     }
     isWinnersSeen ? onMoveToRoundInitial() : setIsWinnersSeen(true);

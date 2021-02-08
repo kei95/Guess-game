@@ -75,5 +75,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-evenly',
     paddingTop: 10,
+    paddingBottom: 5,
   },
 });

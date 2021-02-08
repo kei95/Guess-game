@@ -16,6 +16,7 @@ import {guessableNumberType, User} from '../context/types';
 import {GameInput} from '../screens/GamePlay/GameInput';
 import {Result} from '../screens/Result/Result';
 import {RoundInitial} from '../screens/RoundInitial/RoundInitial';
+import {resetGuessAbleNumbersBody} from '../screens/GamePlay/gameFunctions/gameFunctions';
 
 const Stack = createStackNavigator();
 
@@ -23,10 +24,9 @@ const RootStack: React.FC<navigationTypes> = () => {
   const [players, setPlayers] = useState<User[]>(defaultPlayers);
   const [answerNumber, setAnswerNumber] = useState<number>(defaultAnswerNumber);
   const [roundNumber, setRoundNumber] = useState<number>(1);
-  const [guessableNumber, setGuessableNumber] = useState<guessableNumberType>({
-    smallest: 0,
-    greatest: 100,
-  });
+  const [guessableNumber, setGuessableNumber] = useState<guessableNumberType>(
+    resetGuessAbleNumbersBody,
+  );
 
   return (
     <>
@@ -55,6 +55,7 @@ const RootStack: React.FC<navigationTypes> = () => {
                   options={{
                     headerShown: false,
                     gestureEnabled: false,
+                    animationEnabled: false,
                   }}
                 />
                 <Stack.Screen
@@ -63,6 +64,7 @@ const RootStack: React.FC<navigationTypes> = () => {
                   options={{
                     headerShown: false,
                     gestureEnabled: false,
+                    animationEnabled: false,
                   }}
                 />
                 <Stack.Screen
@@ -71,6 +73,7 @@ const RootStack: React.FC<navigationTypes> = () => {
                   options={{
                     headerShown: false,
                     gestureEnabled: false,
+                    animationEnabled: false,
                   }}
                 />
               </Stack.Navigator>

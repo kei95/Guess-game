@@ -8,6 +8,7 @@ import {
 } from '../../context/context';
 import {User} from '../../context/types';
 import {navigationTypes} from '../../navigation/navigationTypes';
+import {FinishInputPrompt} from './component/FinishInputPrompt';
 import {NumberPicker} from './component/NumberPicker';
 import {Preparation} from './component/Preparation';
 import {
@@ -25,6 +26,7 @@ export const GameInput: React.FC<NumberProps> = ({navigation}) => {
   const guessableNumberContext = useContext(GuessableNumbers);
   const currentRoundContext = useContext(CurrentRound!);
   const [isReadyToPic, setIsReadyToPic] = useState<boolean>(false);
+  const [isEveryoneDone, setIsEveryoneDone] = useState<boolean>(false);
   const [currentPlayerIndex, setCurrentPlayerIndex] = useState<number>(0);
   const [currentPlayers, setCurrentPlayers] = useState<User[] | undefined>(
     defaultPlayers,
@@ -48,10 +50,10 @@ export const GameInput: React.FC<NumberProps> = ({navigation}) => {
     setCurrentPlayerIndex(currentPlayerIndex + 1);
     players!.length > currentPlayerIndex + 1
       ? setIsReadyToPic(false)
-      : goToResult(); // move to next screen
+      : setIsEveryoneDone(true);
   };
 
-  const goToResult = () => {
+  const goToResult = (): void => {
     const players: User[] = currentPlayers!;
     const winners = getWinners(players, numberContext!.answerNumber);
     const updatedPlayers = getUpDatedPlayers(players, winners);
@@ -87,9 +89,14 @@ export const GameInput: React.FC<NumberProps> = ({navigation}) => {
     }
   };
 
-  return isReadyToPic ? (
+  return isEveryoneDone ? (
+    // When everyone is done picking a number
+    <FinishInputPrompt onPressButton={goToResult} />
+  ) : isReadyToPic ? (
+    // When a user is picking a number
     <NumberPicker onPressButton={onDecideNumber} />
   ) : (
+    // Every time a user picks number
     <Preparation
       playerName={currentPlayers![currentPlayerIndex].name}
       onPressButton={setIsReadyToPic}
