@@ -1,34 +1,39 @@
 import React from 'react';
 import {StyleSheet, Text, TextStyle, View, ViewStyle} from 'react-native';
-import {PlayerName} from '../../../components/PlayerName';
 
 import {User} from '../../../context/types';
+import {navigationTypes} from '../../../navigation/navigationTypes';
 import {GlobalStyles} from '../../../styles/globalStyles';
+import {AnimatedNames} from './AnimatedNames';
 
-interface OutPlayersProps {
+interface OutPlayersProps extends navigationTypes {
   outPlayers: User[];
+  isAnimationEnd: boolean;
+  setIsAnimationEnd: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const OutPlayers: React.FC<OutPlayersProps> = ({outPlayers}) => {
-  const outPlayerNames: JSX.Element[] = outPlayers.map((player, idx) => (
-    <PlayerName player={player} key={`outPlayer_${idx}`} />
-  ));
+export const OutPlayers: React.FC<OutPlayersProps> = ({
+  outPlayers,
+  navigation,
+  isAnimationEnd,
+  setIsAnimationEnd,
+}) => {
   return (
     <View style={styles.textsContainer}>
       <Text style={styles.title}>The closest player was...</Text>
-      {outPlayers && outPlayers.length > 0 && outPlayerNames}
+      {outPlayers && outPlayers.length > 0 && (
+        <AnimatedNames
+          players={outPlayers}
+          navigation={navigation}
+          isAnimationEnd={isAnimationEnd}
+          setIsAnimationEnd={setIsAnimationEnd}
+        />
+      )}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  playerName: {
-    fontSize: 40,
-    color: GlobalStyles.secondPrimaryColor,
-    fontWeight: 'bold',
-    fontFamily: GlobalStyles.defaultFont,
-    paddingTop: 10,
-  } as TextStyle,
   textsContainer: {
     flexDirection: 'column',
     alignSelf: 'center',

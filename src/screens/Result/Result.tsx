@@ -22,6 +22,7 @@ import {RuleDescription} from './components/RuleDescription';
 
 export const Result: React.FC<navigationTypes> = ({navigation, route}) => {
   const [isWinnersSeen, setIsWinnersSeen] = useState<boolean>(false);
+  const [isAnimationEnd, setIsAnimationEnd] = useState<boolean>(false);
   const currentRound: RoundNumber = useContext(CurrentRound)!;
   const outPlayers: User[] = route?.params?.outPlayers;
   const isGameOver: boolean = route?.params?.isGameOver ?? false;
@@ -29,14 +30,27 @@ export const Result: React.FC<navigationTypes> = ({navigation, route}) => {
   const playersFromContext = useContext(PlayersContext);
 
   const onPressButton = () => {
-    if (isGameOver) {
-      const restoredPlayers: User[] = resetPlayers(playersFromContext!.players);
-      navigation.navigate('Landing');
-      playersFromContext!.setPlayers(restoredPlayers);
-      guessableNumberContext!.setGuessableNumber(resetGuessAbleNumbersBody);
+    if (!isWinnersSeen && !isAnimationEnd) {
+      setIsAnimationEnd(true);
       return;
     }
-    isWinnersSeen ? onMoveToRoundInitial() : setIsWinnersSeen(true);
+    setIsAnimationEnd(false);
+    if (isGameOver) {
+      goGameOver();
+      return;
+    }
+    if (!isWinnersSeen) {
+      setIsWinnersSeen(true);
+      return;
+    }
+    onMoveToRoundInitial();
+  };
+
+  const goGameOver = () => {
+    const restoredPlayers: User[] = resetPlayers(playersFromContext!.players);
+    navigation.navigate('Landing');
+    playersFromContext!.setPlayers(restoredPlayers);
+    guessableNumberContext!.setGuessableNumber(resetGuessAbleNumbersBody);
   };
 
   const onMoveToRoundInitial = () => {
@@ -47,16 +61,27 @@ export const Result: React.FC<navigationTypes> = ({navigation, route}) => {
   return (
     <DefaultBody>
       <View style={styles.contentsWrapper}>
-        {isGameOver && <GameOver />}
+        {isGameOver && (
+          <GameOver
+            navigation={navigation}
+            isAnimationEnd={isAnimationEnd}
+            setIsAnimationEnd={setIsAnimationEnd}
+          />
+        )}
         {!isGameOver && !isWinnersSeen && (
-          <OutPlayers outPlayers={outPlayers} />
+          <OutPlayers
+            outPlayers={outPlayers}
+            navigation={navigation}
+            isAnimationEnd={isAnimationEnd}
+            setIsAnimationEnd={setIsAnimationEnd}
+          />
         )}
         {!isGameOver && isWinnersSeen && (
           <ResultNumber outPlayers={outPlayers} />
         )}
       </View>
       <View style={styles.buttonWrapper}>
-        {!isWinnersSeen && <RuleDescription />}
+        {!isGameOver && !isWinnersSeen && <RuleDescription />}
         <Button
           title={isWinnersSeen ? 'Next round' : 'OK'}
           onPress={onPressButton}

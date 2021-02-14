@@ -1,34 +1,39 @@
 import React from 'react';
 import {StyleSheet, Text, TextStyle, View, ViewStyle} from 'react-native';
-import {PlayerName} from '../../../components/PlayerName';
 import {User} from '../../../context/types';
+import {navigationTypes} from '../../../navigation/navigationTypes';
 import {GlobalStyles} from '../../../styles/globalStyles';
+import {getCurrentPlayers} from '../../GamePlay/gameFunctions/gameFunctions';
+import {AnimatedNames} from '../../Result/components/AnimatedNames';
 import {roundNumberString} from './roundNumberString/roundNumberString';
 
-interface PlayerNamesProps {
+interface PlayerNamesProps extends navigationTypes {
   players: User[];
   currentRound: number;
+  isAnimationEnd: boolean;
+  setIsAnimationEnd: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const PlayerNames: React.FC<PlayerNamesProps> = ({
   players,
   currentRound,
+  isAnimationEnd,
+  setIsAnimationEnd,
+  navigation,
 }) => {
+  const currentPlayers = getCurrentPlayers(players);
   const currentRoundString: string =
     currentRound < 10 ? roundNumberString[currentRound] : `${currentRound}th`;
-  const remainedPlayerNames: JSX.Element[] = players.map((player, idx) =>
-    !player.isOutOfGame ? (
-      <View style={styles.nameWrapper} key={`player_${idx}`}>
-        <PlayerName player={player} key={`${player}_${idx}`} />
-      </View>
-    ) : (
-      <React.Fragment key={`noPlayer_${idx}`} />
-    ),
-  );
+
   return (
     <View style={styles.contentsWrapper}>
       <Text style={styles.roundText}>{`${currentRoundString} round`}</Text>
-      {remainedPlayerNames}
+      <AnimatedNames
+        players={currentPlayers}
+        navigation={navigation}
+        isAnimationEnd={isAnimationEnd}
+        setIsAnimationEnd={setIsAnimationEnd}
+      />
     </View>
   );
 };
@@ -41,9 +46,6 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     justifyContent: 'center',
     alignItems: 'center',
-  } as ViewStyle,
-  nameWrapper: {
-    paddingTop: 10,
   } as ViewStyle,
   roundText: {
     paddingTop: '20%',

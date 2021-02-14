@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import {StyleSheet, View, ViewStyle, ScrollView} from 'react-native';
 import {Button} from '../../components/button';
 import DefaultBody from '../../components/defaultBody';
@@ -11,8 +11,14 @@ interface RoundInitialProps extends navigationTypes {}
 export const RoundInitial: React.FC<RoundInitialProps> = ({navigation}) => {
   const playersContext = useContext(PlayersContext);
   const currentRound = useContext(CurrentRound!);
+  const [isAnimationEnd, setIsAnimationEnd] = useState<boolean>(false);
 
   const onPressButton = () => {
+    !isAnimationEnd ? setIsAnimationEnd(true) : goToGameInput();
+  };
+
+  const goToGameInput = () => {
+    setIsAnimationEnd(false);
     navigation.navigate('GameInput');
   };
 
@@ -23,6 +29,9 @@ export const RoundInitial: React.FC<RoundInitialProps> = ({navigation}) => {
           <PlayerNames
             players={playersContext!.players}
             currentRound={currentRound!.roundNumber}
+            navigation={navigation}
+            isAnimationEnd={isAnimationEnd}
+            setIsAnimationEnd={setIsAnimationEnd}
           />
         </ScrollView>
       </View>
