@@ -1,5 +1,5 @@
 import React, {useContext, useState} from 'react';
-import {StyleSheet, TextStyle, View, ViewStyle} from 'react-native';
+import {Alert, StyleSheet, TextStyle, View, ViewStyle} from 'react-native';
 
 import {Button} from '../../components/button';
 import DefaultBody from '../../components/defaultBody';
@@ -35,11 +35,11 @@ export const Result: React.FC<navigationTypes> = ({navigation, route}) => {
       return;
     }
     setIsAnimationEnd(false);
-    if (isGameOver) {
+    if (isGameOver && isWinnersSeen) {
       goGameOver();
       return;
     }
-    if (!isWinnersSeen) {
+    if (!isWinnersSeen && outPlayers) {
       setIsWinnersSeen(true);
       return;
     }
@@ -48,9 +48,20 @@ export const Result: React.FC<navigationTypes> = ({navigation, route}) => {
 
   const goGameOver = () => {
     const restoredPlayers: User[] = resetPlayers(playersFromContext!.players);
-    navigation.navigate('Landing');
-    playersFromContext!.setPlayers(restoredPlayers);
-    guessableNumberContext!.setGuessableNumber(resetGuessAbleNumbersBody);
+    Alert.alert('', 'Do you want to return to title screen?', [
+      {
+        text: 'No',
+        style: 'cancel',
+      },
+      {
+        text: 'Yes',
+        onPress: () => {
+          playersFromContext!.setPlayers(restoredPlayers);
+          guessableNumberContext!.setGuessableNumber(resetGuessAbleNumbersBody);
+          navigation.navigate('Landing');
+        },
+      },
+    ]);
   };
 
   const onMoveToRoundInitial = () => {
@@ -60,30 +71,46 @@ export const Result: React.FC<navigationTypes> = ({navigation, route}) => {
 
   return (
     <DefaultBody>
-      <View style={styles.contentsWrapper}>
-        {isGameOver && (
+      <View
+        style={
+          !outPlayers ? styles.contentsWrapperDraw : styles.contentsWrapper
+        }>
+        {!outPlayers ? (
           <GameOver
             navigation={navigation}
             isAnimationEnd={isAnimationEnd}
             setIsAnimationEnd={setIsAnimationEnd}
+            isDraw={true}
           />
-        )}
-        {!isGameOver && !isWinnersSeen && (
-          <OutPlayers
-            outPlayers={outPlayers}
-            navigation={navigation}
-            isAnimationEnd={isAnimationEnd}
-            setIsAnimationEnd={setIsAnimationEnd}
-          />
-        )}
-        {!isGameOver && isWinnersSeen && (
-          <ResultNumber outPlayers={outPlayers} />
+        ) : (
+          <>
+            {isGameOver && (
+              <GameOver
+                outPlayers={outPlayers}
+                navigation={navigation}
+                isWinnersSeen={isWinnersSeen}
+                isAnimationEnd={isAnimationEnd}
+                setIsAnimationEnd={setIsAnimationEnd}
+              />
+            )}
+            {!isGameOver && !isWinnersSeen && (
+              <OutPlayers
+                outPlayers={outPlayers}
+                navigation={navigation}
+                isAnimationEnd={isAnimationEnd}
+                setIsAnimationEnd={setIsAnimationEnd}
+              />
+            )}
+            {!isGameOver && isWinnersSeen && (
+              <ResultNumber outPlayers={outPlayers} />
+            )}
+          </>
         )}
       </View>
       <View style={styles.buttonWrapper}>
         {!isGameOver && !isWinnersSeen && <RuleDescription />}
         <Button
-          title={isWinnersSeen ? 'Next round' : 'OK'}
+          title={isWinnersSeen ? 'Back to title' : 'OK'}
           onPress={onPressButton}
         />
       </View>
@@ -99,6 +126,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignContent: 'center',
   } as ViewStyle,
+  contentsWrapperDraw: {
+    flex: 5,
+    flexWrap: 'wrap',
+    width: '100%',
+    flexDirection: 'row',
+    alignContent: 'center',
+    justifyContent: 'center',
+  },
   textsContainer: {
     flexDirection: 'column',
     alignSelf: 'center',

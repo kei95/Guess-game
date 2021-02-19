@@ -54,18 +54,24 @@ export const GameInput: React.FC<NumberProps> = ({navigation}) => {
   };
 
   const goToResult = (): void => {
+    const allPlayers: User[] = playersFromContext!.players;
     const players: User[] = currentPlayers!;
     const winners = getWinners(players, numberContext!.answerNumber);
-    const updatedPlayers = getUpDatedPlayers(players, winners);
+    const updatedPlayers = getUpDatedPlayers(allPlayers, winners);
     const updatedCurrentPlayers = getCurrentPlayers(updatedPlayers);
-    playersFromContext!.setPlayers(updatedPlayers);
     setCurrentPlayerIndex(0);
+    console.log(updatedCurrentPlayers);
     // needs to be 1 to finish the game
     if (updatedCurrentPlayers.length === 1) {
       // Navigate to the end of the game screen
+      playersFromContext!.setPlayers(updatedPlayers);
       currentRoundContext!.setRoundNumber(1);
       navigation.navigate('Result', {outPlayers: winners, isGameOver: true});
+    } else if (updatedCurrentPlayers.length === 0) {
+      setIsReadyToPic(false);
+      navigation.navigate('Result');
     } else {
+      playersFromContext!.setPlayers(updatedPlayers);
       updateGuessableNumber(winners);
       setCurrentPlayers(updatedCurrentPlayers);
       setIsReadyToPic(false);
