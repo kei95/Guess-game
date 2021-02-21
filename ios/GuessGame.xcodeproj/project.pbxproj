@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* GuessGameTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* GuessGameTests.m */; };
+		0486EF3F25E2FBC700BA7D1D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
@@ -17,7 +18,6 @@
 		2DCD954D1E0B4F2C00145EB5 /* GuessGameTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* GuessGameTests.m */; };
 		34D33094CE7F3608AD1CEF69 /* libPods-GuessGame.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E2373295C75568F98209153 /* libPods-GuessGame.a */; };
 		6EC9687B398B43B7C7D52315 /* libPods-GuessGame-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C682A808DE42C36ED4867833 /* libPods-GuessGame-tvOS.a */; };
-		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		9478440E3D764810622A401C /* libPods-GuessGame-GuessGameTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C6676CD6EA7E48A372AD9D51 /* libPods-GuessGame-GuessGameTests.a */; };
 		D08F01EAF51B74ED359E8FC8 /* libPods-GuessGame-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 69498B1F759A1687FCCB70D1 /* libPods-GuessGame-tvOSTests.a */; };
 /* End PBXBuildFile section */
@@ -340,8 +340,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				0486EF3F25E2FBC700BA7D1D /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

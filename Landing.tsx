@@ -22,7 +22,7 @@ const App: React.FC<navigationTypes> = ({navigation}) => {
           style={styles.appLogo}
           source={require('./assets/img/appIcon.png')}
         />
-        <Text style={styles.title}>Number Picker</Text>
+        <Text style={styles.title}>Guess Number Game</Text>
       </View>
       <View style={styles.buttonWrapper}>
         <Button
@@ -56,6 +56,8 @@ const styles = StyleSheet.create({
     width: 150,
     height: 150,
     tintColor: '#3D405B',
+    marginRight: 10,
+    alignSelf: 'center',
   } as ImageStyle,
 });
 
