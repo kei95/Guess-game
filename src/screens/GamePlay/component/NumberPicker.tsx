@@ -41,14 +41,7 @@ export const NumberPicker: React.FC<NumberPickerProps> = ({onPressButton}) => {
   const renderItem = (item: string, _: number) => {
     return (
       <View style={styles.itemContainer}>
-        <Text
-          style={
-            number === parseInt(item, 10)
-              ? styles.pickerNumberBorder
-              : styles.pickerNumber
-          }>
-          {item}
-        </Text>
+        <Text style={styles.pickerNumber}>{item}</Text>
       </View>
     );
   };
@@ -117,16 +110,6 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   } as ViewStyle,
   pickerNumber: {
-    height: 70,
-    width: 75,
-    fontSize: 70,
-    color: GlobalStyles.secondPrimaryColor,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    marginHorizontal: 20,
-    fontFamily: GlobalStyles.defaultFont,
-  } as TextStyle,
-  pickerNumberBorder: {
     height: 70,
     width: 75,
     fontSize: 70,

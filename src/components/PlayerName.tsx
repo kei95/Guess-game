@@ -15,6 +15,7 @@ const styles = StyleSheet.create({
   playerName: {
     fontSize: 40,
     color: GlobalStyles.secondPrimaryColor,
+    textAlign: 'center',
     fontWeight: 'bold',
     fontFamily: GlobalStyles.defaultFont,
     paddingTop: 10,

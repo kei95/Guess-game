@@ -34,4 +34,4 @@ export const defaultPlayers: User[] = [
 ];
 
 // default answer
-export const defaultAnswerNumber = Math.floor(Math.random() * 101);
+export const defaultAnswerNumber = Math.floor(Math.random() * 100);

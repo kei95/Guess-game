@@ -35,5 +35,5 @@ export const resetPlayers = (players: User[]): User[] => {
 
 export const resetGuessAbleNumbersBody = {
   smallest: 0,
-  greatest: 101,
+  greatest: 100,
 }

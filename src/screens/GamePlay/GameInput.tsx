@@ -60,7 +60,6 @@ export const GameInput: React.FC<NumberProps> = ({navigation}) => {
     const updatedPlayers = getUpDatedPlayers(allPlayers, winners);
     const updatedCurrentPlayers = getCurrentPlayers(updatedPlayers);
     setCurrentPlayerIndex(0);
-    console.log(updatedCurrentPlayers);
     // needs to be 1 to finish the game
     if (updatedCurrentPlayers.length === 1) {
       // Navigate to the end of the game screen
