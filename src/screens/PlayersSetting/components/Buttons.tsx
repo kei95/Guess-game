@@ -37,7 +37,7 @@ export const Buttons: React.FC<ButtonsProps> = ({players, setPlayers}) => {
           textStyle={styles.addReduceButtonText}
         />
       ) : (
-        <View style={styles.addReduceButton} />
+        <View style={styles.emptyAddReduceButton} />
       )}
       <Button
         title="+"
@@ -56,6 +56,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginVertical: 25,
+  } as ViewStyle,
+  emptyAddReduceButton: {
+    width: '45%',
+    alignItems: 'center',
+    borderRadius: 10,
+    paddingVertical: 10,
   } as ViewStyle,
   addReduceButton: {
     width: '45%',

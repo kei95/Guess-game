@@ -6,6 +6,7 @@ import {
   ViewStyle,
   TextStyle,
   Dimensions,
+  Platform,
 } from 'react-native';
 import {Button} from '../../../components/button';
 
@@ -110,8 +111,8 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   } as ViewStyle,
   pickerNumber: {
-    height: 70,
-    width: 75,
+    height: Platform.OS === 'android' ? 80 : 70,
+    width: Platform.OS === 'android' ? 80 : 75,
     fontSize: 70,
     color: GlobalStyles.secondPrimaryColor,
     fontWeight: 'bold',
@@ -123,7 +124,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     height: 70,
     position: 'absolute',
-    top: 0,
+    top: Platform.OS === 'android' ? 10 : 0,
     left: '37%',
     borderColor: GlobalStyles.secondPrimaryColor,
   } as ViewStyle,
@@ -131,12 +132,13 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     height: 70,
     position: 'absolute',
-    top: 0,
+    top: Platform.OS === 'android' ? 10 : 0,
     right: '37%',
     borderColor: GlobalStyles.secondPrimaryColor,
   } as ViewStyle,
   itemContainer: {
     width: 120,
+    alignItems: 'center',
   } as ViewStyle,
   numberPicker: {
     left: 0,
