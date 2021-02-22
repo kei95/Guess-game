@@ -1,4 +1,12 @@
 {
   "name": "GuessGame",
-  "displayName": "GuessGame"
+  "icon": "./logo.png",
+  "displayName": "Guess Number Game",
+  "version": "1.0.0",
+  "ios": {
+    "bundleIdentifier": "com.kei95.guessnumbergame"
+  },
+  "android": {
+    "package": "com.kei95.guessnumbergame"
+  }
 }
