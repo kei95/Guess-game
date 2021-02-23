@@ -1,7 +1,7 @@
 {
   "name": "GuessGame",
   "icon": "./logo.png",
-  "displayName": "Guess Number Game",
+  "displayName": "Guess Game",
   "version": "1.0.0",
   "ios": {
     "bundleIdentifier": "com.kei95.guessnumbergame"

@@ -1,4 +1,4 @@
-package com.guessgame;
+package com.kei95.guessgame;
 
 import com.facebook.react.ReactActivity;
 

@@ -22,7 +22,7 @@ const App: React.FC<navigationTypes> = ({navigation}) => {
           style={styles.appLogo}
           source={require('./assets/img/appIcon.png')}
         />
-        <Text style={styles.title}>Guess Number Game</Text>
+        <Text style={styles.title}>Guess Game</Text>
       </View>
       <View style={styles.buttonWrapper}>
         <Button

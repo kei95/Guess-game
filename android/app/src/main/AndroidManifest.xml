@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="com.guessgame">
+  package="com.kei95.guessgame">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
